@@ -9,6 +9,7 @@ import os
 import cv2
 from mtcnn import MTCNN
 import numpy as np  
+import gzip
 
 config = read_yaml("config/config.yaml")
 params = read_yaml("params.yaml")
@@ -37,7 +38,7 @@ poolings = params['base']['pooling']
 detector = MTCNN()
 model = VGGFace(model=model_name ,include_top=include_tops,input_shape=(224,224,3),pooling=poolings)
 filenames = pickle.load(open(pickle_file,'rb'))
-feature_list = pickle.load(open(feature_name, "rb"))
+feature_list = pickle.load(gzip.open(feature_name, "rb"))
 
 def save_upload_image(upload_image):
     try:
